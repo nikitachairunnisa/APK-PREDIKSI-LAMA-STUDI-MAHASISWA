@@ -25,6 +25,7 @@ def prediksi_file(file):
     data_prediksi = pd.read_excel(file, header=None)
 
     # Lakukan pra-pemrosesan jika diperlukan
+    print(data_prediksi.columns)
     data_prediksi['JENIS KELAMIN'] = labelencoder.transform(data_prediksi['JENIS KELAMIN'])
     # Lakukan prediksi menggunakan model yang telah dilatih
     hasil_prediksi = model.predict(data_prediksi)
