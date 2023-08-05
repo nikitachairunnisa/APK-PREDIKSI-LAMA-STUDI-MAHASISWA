@@ -158,6 +158,5 @@ def main():
                 hasil_teks = konversi_ke_teks2(predicted_value)
                 st.write('ESTIMASI LAMA STUDI ANDA :', f"<b>{hasil_teks}</b>", unsafe_allow_html=True)
 if __name__ == '__main__':
-    st.beta_set_page_config( footer="2023")
     main()
    
