@@ -93,6 +93,7 @@ def get_download_link(dataframe):
     b64 = base64.b64encode(csv.encode()).decode()  # Encode dalam base64
     href = f'<a href="data:file/csv;base64,{b64}" download="hasil_prediksi.csv">Klik untuk mengunduh</a>'
     return href
+    
 def main():
     st.title('Aplikasi Prediksi')
 
@@ -114,25 +115,10 @@ def main():
             st.write(hasil_prediksi)
 
             # Tambahkan tombol untuk menyimpan hasil prediksi ke file baru (Excel)
-            if st.button('Simpan Hasil Prediksi ke Excel') and not hasil_prediksi['Hasil Prediksi'].isnull().any():
-                # Simpan hasil prediksi beserta data asli dari file yang diunggah
-                with pd.ExcelWriter('hasil_prediksi.xlsx') as writer:
-                    hasil_prediksi.to_excel(writer, index=False, sheet_name='Hasil Prediksi')
-                st.success('Hasil prediksi telah disimpan ke file hasil_prediksi2.xlsx')
-
-            # Tambahkan tombol untuk menyimpan hasil prediksi ke file baru (CSV)
-             download_link = get_download_link(hasil_prediksi)
-             st.markdown(download_link, unsafe_allow_html=True)
-            if st.button('Simpan Hasil Prediksi ke CSV') and not hasil_prediksi['Hasil Prediksi'].isnull().any():
-                hasil_prediksi.to_csv('hasil_prediksi.csv', index=False)
-                st.success('Hasil prediksi telah disimpan ke file hasil_prediksi.csv')
+           download_link = get_download_link(hasil_prediksi)
+           st.markdown(download_link, unsafe_allow_html=True)
 
      
-           
-
-            elif hasil_prediksi['Hasil Prediksi'].isnull().any():
-                st.warning('Hasil prediksi kosong. Pastikan file yang diunggah sesuai format dan telah diproses dengan benar.')
-
     else:
         # Tambahkan input manual jika checkbox tidak dicentang
         # Fungsi untuk mengkonversi jenis kelamin menjadi nilai 1 (laki-laki) atau 2 (wanita)
