@@ -99,7 +99,7 @@ def main():
         file = st.file_uploader('Upload file dalam format excel', type=['xlsx'])
 
         if file is not None:
-            hasil_prediksi = prediksi_file(file, Header=None)
+            hasil_prediksi = prediksi_file(file)
 
              # Konversi hasil prediksi angka menjadi teks
             hasil_prediksi['Hasil Prediksi'] = konversi_ke_teks(hasil_prediksi['Hasil Prediksi'])
