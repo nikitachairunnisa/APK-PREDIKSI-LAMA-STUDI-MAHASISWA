@@ -22,7 +22,7 @@ kolom_model = ['JENIS KELAMIN', 'IP_S1', 'IP_S2', 'IP_S3', 'IP_S4', 'IP_S5', 'IP
 
 def prediksi_file(file):
     # Baca data dari file (misalnya file dalam format Excel)
-    data_prediksi = pd.read_excel(file)
+    data_prediksi = pd.read_excel(file, Header=None)
 
     # Lakukan pra-pemrosesan jika diperlukan
     print(data_prediksi.columns)
@@ -99,7 +99,7 @@ def main():
         file = st.file_uploader('Upload file dalam format excel', type=['xlsx'])
 
         if file is not None:
-            hasil_prediksi = prediksi_file(file)
+            hasil_prediksi = prediksi_file(file, Header=None)
 
              # Konversi hasil prediksi angka menjadi teks
             hasil_prediksi['Hasil Prediksi'] = konversi_ke_teks(hasil_prediksi['Hasil Prediksi'])
