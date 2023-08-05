@@ -110,15 +110,13 @@ def main():
             st.write(hasil_prediksi)
 
             # Tambahkan tombol untuk menyimpan hasil prediksi ke file baru (Excel)
-           download_link = get_download_link(hasil_prediksi)
-           st.markdown(download_link, unsafe_allow_html=True)
-
-
-def get_download_link(dataframe):
-    csv = dataframe.to_csv(index=False)
-    b64 = base64.b64encode(csv.encode()).decode()  # Encode dalam base64
-    href = f'<a href="data:file/csv;base64,{b64}" download="hasil_prediksi.csv">Klik untuk mengunduh</a>'
-    return href
+            download_link = get_download_link(hasil_prediksi)
+            st.markdown(download_link, unsafe_allow_html=True)
+        def get_download_link(dataframe):
+             csv = dataframe.to_csv(index=False)
+        b64 = base64.b64encode(csv.encode()).decode()  # Encode dalam base64
+        href = f'<a href="data:file/csv;base64,{b64}" download="hasil_prediksi.csv">Klik untuk mengunduh</a>'
+        return href
 
      
     else:
