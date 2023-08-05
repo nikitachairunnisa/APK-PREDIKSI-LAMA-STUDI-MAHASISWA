@@ -6,7 +6,8 @@ from sklearn.linear_model import Ridge
 from sklearn.preprocessing import LabelEncoder
 
 # Mengganti judul dan ikon
-st.set_page_config(page_title="Aplikasi Prediksi Lama Studi", page_icon=":bar_chart:", layout="wide", footer="PA 2023")
+#st.beta_set_page_config(page_title="Aplikasi Saya", page_icon=":rocket:", layout="wide", initial_sidebar_state="expanded", footer="Ini adalah footer aplikasi.")
+st.beta_set_page_config(page_title="Aplikasi Prediksi Lama Studi", page_icon=":bar_chart:", initial_sidebar_state="expanded", layout="wide", footer="PA 2023")
 
 # Load model dari file pickle
 model = pickle.load(open('data apk2.sav', 'rb'))
