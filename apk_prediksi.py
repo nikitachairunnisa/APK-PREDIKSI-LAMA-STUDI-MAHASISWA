@@ -22,7 +22,7 @@ kolom_model = ['JENIS KELAMIN', 'IP_S1', 'IP_S2', 'IP_S3', 'IP_S4', 'IP_S5', 'IP
 
 def prediksi_file(file):
     # Baca data dari file (misalnya file dalam format Excel)
-    data_prediksi = pd.read_excel(file, header=None)
+    data_prediksi = pd.read_excel(file)
 
     # Lakukan pra-pemrosesan jika diperlukan
     print(data_prediksi.columns)
