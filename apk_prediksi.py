@@ -6,7 +6,7 @@ from sklearn.linear_model import Ridge
 from sklearn.preprocessing import LabelEncoder
 
 # Mengganti judul dan ikon
-st.set_page_config(page_title="Aplikasi Prediksi Lama Studi", page_icon=":bar_chart:", layout="wide")
+st.set_page_config(page_title="Aplikasi Prediksi Lama Studi", page_icon=":bar_chart:", layout="wide",footer="PA 2023")
 
 # Load model dari file pickle
 model = pickle.load(open('data apk2.sav', 'rb'))
@@ -159,5 +159,4 @@ def main():
                 st.write('ESTIMASI LAMA STUDI ANDA :', f"<b>{hasil_teks}</b>", unsafe_allow_html=True)
 
 if __name__ == '__main__':
-    st.beta_set_page_config(page_title="Copyright 2023", page_icon=":rocket:", layout="wide", initial_sidebar_state="expanded")
     main()
