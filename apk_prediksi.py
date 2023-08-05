@@ -159,5 +159,5 @@ def main():
                 st.write('ESTIMASI LAMA STUDI ANDA :', f"<b>{hasil_teks}</b>", unsafe_allow_html=True)
 
 if __name__ == '__main__':
-     st.beta_set_page_config(page_title="Jurusan Teknologi Informasi, copyright 2023", page_icon=":rocket:", layout="wide", initial_sidebar_state="expanded")
+    st.beta_set_page_config(page_title="Jurusan Teknologi Informasi, copyright 2023", page_icon=":rocket:", layout="wide", initial_sidebar_state="expanded")
     main()
