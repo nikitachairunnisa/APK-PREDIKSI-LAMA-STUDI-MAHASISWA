@@ -5,6 +5,9 @@ import numpy as np
 from sklearn.linear_model import Ridge
 from sklearn.preprocessing import LabelEncoder
 
+# Mengganti judul dan ikon
+st.set_page_config(page_title="Aplikasi Prediksi Lama Studi", page_icon="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngwing.com%2Fid%2Ffree-png-zyqtc&psig=AOvVaw39bHkEuDvzDeLGtzo5zmEM&ust=1691336144207000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCNjyz531woADFQAAAAAdAAAAABAE")
+
 # Load model dari file pickle
 model = pickle.load(open('data apk2.sav', 'rb'))
 
