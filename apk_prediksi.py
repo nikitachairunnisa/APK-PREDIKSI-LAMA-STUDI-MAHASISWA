@@ -87,7 +87,12 @@ def konversi_ke_teks2(nilai_prediksi):
                 hasil_teks = f"{teks_tahun} {teks_bulan}"
 
             return hasil_teks
-
+        
+def get_download_link(dataframe):
+    csv = dataframe.to_csv(index=False)
+    b64 = base64.b64encode(csv.encode()).decode()  # Encode dalam base64
+    href = f'<a href="data:file/csv;base64,{b64}" download="hasil_prediksi.csv">Klik untuk mengunduh</a>'
+    return href
 def main():
     st.title('Aplikasi Prediksi')
 
@@ -116,6 +121,8 @@ def main():
                 st.success('Hasil prediksi telah disimpan ke file hasil_prediksi2.xlsx')
 
             # Tambahkan tombol untuk menyimpan hasil prediksi ke file baru (CSV)
+             download_link = get_download_link(hasil_prediksi)
+             st.markdown(download_link, unsafe_allow_html=True)
             if st.button('Simpan Hasil Prediksi ke CSV') and not hasil_prediksi['Hasil Prediksi'].isnull().any():
                 hasil_prediksi.to_csv('hasil_prediksi.csv', index=False)
                 st.success('Hasil prediksi telah disimpan ke file hasil_prediksi.csv')
