@@ -91,6 +91,10 @@ def konversi_ke_teks2(nilai_prediksi):
                 hasil_teks = f"{teks_tahun} {teks_bulan}"
 
             return hasil_teks
+            
+def fill_worksheet(worksheet, dataframe):
+    for row in dataframe_to_rows(dataframe, index=False, header=True):
+        worksheet.append(row)
 
 def main():
     st.title('Aplikasi Prediksi')
@@ -113,32 +117,27 @@ def main():
             st.write(hasil_prediksi)
             
             # Tombol untuk mengunduh hasil prediksi ke dalam file Excel
-            if st.button('Simpan Hasil Prediksi ke Excel') and not hasil_prediksi['Hasil Prediksi'].isnull().any():
-                # Membuat objek workbook dan worksheet
-                wb = Workbook()
-                ws = wb.active
-                ws.title = 'Hasil Prediksi'
-            
-                # Mengisi worksheet dengan data hasil prediksi
-                for row in dataframe_to_rows(hasil_prediksi, index=False, header=True):
-                    ws.append(row)
-            
-                # Membuat BytesIO untuk menyimpan hasil workbook
-                excel_output = BytesIO()
-                wb.save(excel_output)
-                excel_output.seek(0)
-            
-                # Tawarkan konten Excel kepada pengguna melalui st.file_download
-                st.file_download('hasil_prediksi.xlsx', excel_output.getvalue(), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-            
-            elif hasil_prediksi['Hasil Prediksi'].isnull().any():
-                st.warning('Hasil prediksi kosong. Pastikan file yang diunggah sesuai format dan telah diproses dengan benar.')
-
+        if st.button('Simpan Hasil Prediksi ke Excel') and not hasil_prediksi['Hasil Prediksi'].isnull().any():
+            # Membuat objek workbook dan worksheet
+            wb = Workbook()
+            ws = wb.active
+            ws.title = 'Hasil Prediksi'
     
-
-      
-
-         
+            # Mengisi worksheet dengan data hasil prediksi
+            fill_worksheet(ws, hasil_prediksi)
+    
+            # Membuat BytesIO untuk menyimpan hasil workbook
+            excel_output = BytesIO()
+            wb.save(excel_output)
+            excel_output.seek(0)
+    
+            # Tawarkan konten Excel kepada pengguna melalui st.file_download
+            st.file_download('hasil_prediksi.xlsx', excel_output.getvalue(), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    
+        elif hasil_prediksi['Hasil Prediksi'].isnull().any():
+            st.warning('Hasil prediksi kosong. Pastikan file yang diunggah sesuai format dan telah diproses dengan benar.')      
+    
+             
 
     else:
         # Tambahkan input manual jika checkbox tidak dicentang
