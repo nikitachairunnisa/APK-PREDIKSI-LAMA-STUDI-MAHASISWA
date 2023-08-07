@@ -5,6 +5,7 @@ import numpy as np
 from sklearn.linear_model import Ridge
 from sklearn.preprocessing import LabelEncoder
 from io import BytesIO
+import xlsxwriter
 
 # Mengganti judul dan ikon
 st.set_page_config(page_title="Aplikasi Prediksi Lama Studi", page_icon=":bar_chart:", layout="wide")
