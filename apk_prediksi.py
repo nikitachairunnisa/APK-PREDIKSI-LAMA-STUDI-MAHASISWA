@@ -109,14 +109,14 @@ def main():
             st.write(hasil_prediksi)
 
       # Tambahkan tombol untuk menyimpan hasil prediksi ke file baru (Excel)
-            if st.button('Simpan Hasil Prediksi ke Excel') and not hasil_prediksi['Hasil Prediksi'].isnull().any():
+            if st.download_button('Simpan Hasil Prediksi ke Excel') and not hasil_prediksi['Hasil Prediksi'].isnull().any():
                 # Simpan hasil prediksi beserta data asli dari file yang diunggah
                 with pd.ExcelWriter('hasil_prediksi.xlsx') as writer:
                     hasil_prediksi.to_excel(writer, index=False, sheet_name='Hasil Prediksi')
                 st.success('Hasil prediksi telah disimpan ke file hasil_prediksi2.xlsx')
 
             # Tambahkan tombol untuk menyimpan hasil prediksi ke file baru (CSV)
-            if st.button('Simpan Hasil Prediksi ke CSV') and not hasil_prediksi['Hasil Prediksi'].isnull().any():
+            if st.download_button('Simpan Hasil Prediksi ke CSV') and not hasil_prediksi['Hasil Prediksi'].isnull().any():
                 hasil_prediksi.to_csv('hasil_prediksi.csv', index=False)
                 st.success('Hasil prediksi telah disimpan ke file hasil_prediksi.csv')
 
