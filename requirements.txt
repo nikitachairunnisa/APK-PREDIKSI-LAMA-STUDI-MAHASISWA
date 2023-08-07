@@ -6,4 +6,4 @@ base64
 scikit-learn
 openpyxl
 BytesIO
-xlsxwriter
+xlwt
