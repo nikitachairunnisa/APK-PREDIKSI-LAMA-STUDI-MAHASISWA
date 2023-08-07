@@ -125,8 +125,8 @@ def main():
             st.write(hasil_prediksi)
             
             # Tombol untuk menyimpan hasil prediksi ke dalam file Excel
-         if st.button('Simpan Hasil Prediksi'):
-            if not hasil_prediksi['Hasil Prediksi'].isnull().any():
+            if st.button('Simpan Hasil Prediksi'):
+                if not hasil_prediksi['Hasil Prediksi'].isnull().any():
                 excel_output = save_to_excel(hasil_prediksi)
                 st.download_button('Download Hasil Prediksi', excel_output.getvalue(), file_name='hasil_prediksi.xls', mime='application/vnd.ms-excel')
             else:
