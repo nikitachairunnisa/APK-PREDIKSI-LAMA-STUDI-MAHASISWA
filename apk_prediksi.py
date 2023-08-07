@@ -2,7 +2,6 @@ import pickle
 import streamlit as st
 import pandas as pd
 import numpy as np
-import base64
 from sklearn.linear_model import Ridge
 from sklearn.preprocessing import LabelEncoder
 
@@ -88,7 +87,7 @@ def konversi_ke_teks2(nilai_prediksi):
                 hasil_teks = f"{teks_tahun} {teks_bulan}"
 
             return hasil_teks
-        
+
 def main():
     st.title('Aplikasi Prediksi')
 
@@ -109,16 +108,23 @@ def main():
             st.header('Hasil Prediksi dari File')
             st.write(hasil_prediksi)
 
-            # Tambahkan tombol untuk menyimpan hasil prediksi ke file baru (Excel)
-            download_link = get_download_link(hasil_prediksi)
-            st.markdown(download_link, unsafe_allow_html=True)
-        def get_download_link(dataframe):
-             csv = dataframe.to_csv(index=False)
-        b64 = base64.b64encode(csv.encode()).decode()  # Encode dalam base64
-        href = f'<a href="data:file/csv;base64,{b64}" download="hasil_prediksi.csv">Klik untuk mengunduh</a>'
-        return href
+      # Tambahkan tombol untuk menyimpan hasil prediksi ke file baru (Excel)
+            if st.file_download('Simpan Hasil Prediksi ke Excel') and not hasil_prediksi['Hasil Prediksi'].isnull().any():
+                # Simpan hasil prediksi beserta data asli dari file yang diunggah
+                with pd.ExcelWriter('hasil_prediksi.xlsx') as writer:
+                    hasil_prediksi.to_excel(writer, index=False, sheet_name='Hasil Prediksi')
+                st.success('Hasil prediksi telah disimpan ke file hasil_prediksi2.xlsx')
 
-     
+            # Tambahkan tombol untuk menyimpan hasil prediksi ke file baru (CSV)
+            if st.file_download('Simpan Hasil Prediksi ke CSV') and not hasil_prediksi['Hasil Prediksi'].isnull().any():
+                hasil_prediksi.to_csv('hasil_prediksi.csv', index=False)
+                st.success('Hasil prediksi telah disimpan ke file hasil_prediksi.csv')
+
+            elif hasil_prediksi['Hasil Prediksi'].isnull().any():
+                st.warning('Hasil prediksi kosong. Pastikan file yang diunggah sesuai format dan telah diproses dengan benar.')
+
+         
+
     else:
         # Tambahkan input manual jika checkbox tidak dicentang
         # Fungsi untuk mengkonversi jenis kelamin menjadi nilai 1 (laki-laki) atau 2 (wanita)
@@ -150,6 +156,6 @@ def main():
 
                 hasil_teks = konversi_ke_teks2(predicted_value)
                 st.write('ESTIMASI LAMA STUDI ANDA :', f"<b>{hasil_teks}</b>", unsafe_allow_html=True)
-
 if __name__ == '__main__':
     main()
+   
