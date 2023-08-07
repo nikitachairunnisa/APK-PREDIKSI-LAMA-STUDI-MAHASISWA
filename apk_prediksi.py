@@ -2,10 +2,11 @@ import pickle
 import streamlit as st
 import pandas as pd
 import numpy as np
+from openpyxl import Workbook
 from sklearn.linear_model import Ridge
 from sklearn.preprocessing import LabelEncoder
 from io import BytesIO
-import xlsxwriter
+
 
 # Mengganti judul dan ikon
 st.set_page_config(page_title="Aplikasi Prediksi Lama Studi", page_icon=":bar_chart:", layout="wide")
@@ -112,15 +113,23 @@ def main():
             
             # Tombol untuk mengunduh hasil prediksi ke dalam file Excel
             if st.button('Simpan Hasil Prediksi ke Excel') and not hasil_prediksi['Hasil Prediksi'].isnull().any():
-                # Konversi hasil prediksi ke dalam format Excel (BytesIO)
+                # Membuat objek workbook dan worksheet
+                wb = Workbook()
+                ws = wb.active
+                ws.title = 'Hasil Prediksi'
+            
+                # Mengisi worksheet dengan data hasil prediksi
+                for row in dataframe_to_rows(hasil_prediksi, index=False, header=True):
+                    ws.append(row)
+            
+                # Membuat BytesIO untuk menyimpan hasil workbook
                 excel_output = BytesIO()
-                with pd.ExcelWriter(excel_output, engine='xlsxwriter') as writer:
-                    hasil_prediksi.to_excel(writer, index=False, sheet_name='Hasil Prediksi')
+                wb.save(excel_output)
                 excel_output.seek(0)
-
+            
                 # Tawarkan konten Excel kepada pengguna melalui st.file_download
                 st.file_download('hasil_prediksi.xlsx', excel_output.getvalue(), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-
+            
             elif hasil_prediksi['Hasil Prediksi'].isnull().any():
                 st.warning('Hasil prediksi kosong. Pastikan file yang diunggah sesuai format dan telah diproses dengan benar.')
 
