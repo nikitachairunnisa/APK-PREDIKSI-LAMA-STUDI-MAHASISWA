@@ -114,7 +114,7 @@ def main():
                 # Konversi hasil prediksi ke dalam format Excel (BytesIO)
                 excel_output = BytesIO()
                 with pd.ExcelWriter(excel_output, engine='xlsxwriter') as writer:
-                hasil_prediksi.to_excel(writer, index=False, sheet_name='Hasil Prediksi')
+                    hasil_prediksi.to_excel(writer, index=False, sheet_name='Hasil Prediksi')
                 excel_output.seek(0)
 
                 # Tawarkan konten Excel kepada pengguna melalui st.file_download
