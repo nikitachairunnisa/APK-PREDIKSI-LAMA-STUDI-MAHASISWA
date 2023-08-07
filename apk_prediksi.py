@@ -109,7 +109,7 @@ def main():
             st.write(hasil_prediksi)
 
           # Tampilkan tombol unduh menggunakan elemen HTML
-            excel_button = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{hasil_prediksi}" download="{Hasil prediksi.Xlxs}">Download Excel</a>'
+            excel_button = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{hasil_prediksi}" download="{hasil_prediksi.xlsx}">Download Excel</a>'
             st.write(excel_button, unsafe_allow_html=True)
 
 
