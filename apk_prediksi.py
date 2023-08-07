@@ -111,11 +111,7 @@ def main():
           # Tampilkan tombol unduh menggunakan elemen HTML
             excel_button = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{hasil_prediksi}" download="{Hasil prediksi.Xlxs}">Download Excel</a>'
             st.write(excel_button, unsafe_allow_html=True)
-     
-           
 
-            elif hasil_prediksi['Hasil Prediksi'].isnull().any():
-                st.warning('Hasil prediksi kosong. Pastikan file yang diunggah sesuai format dan telah diproses dengan benar.')
 
     else:
         # Tambahkan input manual jika checkbox tidak dicentang
