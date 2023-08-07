@@ -2,8 +2,7 @@ import pickle
 import streamlit as st
 import pandas as pd
 import numpy as np
-from openpyxl import Workbook
-from openpyxl.utils.dataframe import dataframe_to_rows
+import xlwt
 from sklearn.linear_model import Ridge
 from sklearn.preprocessing import LabelEncoder
 from io import BytesIO
@@ -92,9 +91,18 @@ def konversi_ke_teks2(nilai_prediksi):
 
             return hasil_teks
             
-def fill_worksheet(worksheet, dataframe):
-    for row in dataframe_to_rows(dataframe, index=False, header=True):
-        worksheet.append(row)
+def save_to_excel(dataframe):
+    output = BytesIO()
+    workbook = xlwt.Workbook()
+    worksheet = workbook.add_sheet('Hasil Prediksi')
+
+    for row_num, row_data in enumerate(dataframe.values):
+        for col_num, cell_value in enumerate(row_data):
+            worksheet.write(row_num, col_num, cell_value)
+
+    workbook.save(output)
+    output.seek(0)
+    return output
 
 def main():
     st.title('Aplikasi Prediksi')
@@ -116,26 +124,13 @@ def main():
             st.header('Hasil Prediksi dari File')
             st.write(hasil_prediksi)
             
-            # Tombol untuk mengunduh hasil prediksi ke dalam file Excel
-        if st.button('Simpan Hasil Prediksi ke Excel') and not hasil_prediksi['Hasil Prediksi'].isnull().any():
-            # Membuat objek workbook dan worksheet
-            wb = Workbook()
-            ws = wb.active
-            ws.title = 'Hasil Prediksi'
-    
-            # Mengisi worksheet dengan data hasil prediksi
-            fill_worksheet(ws, hasil_prediksi)
-    
-            # Membuat BytesIO untuk menyimpan hasil workbook
-            excel_output = BytesIO()
-            wb.save(excel_output)
-            excel_output.seek(0)
-    
-            # Tawarkan konten Excel kepada pengguna melalui st.file_download
-            st.file_download('hasil_prediksi.xlsx', excel_output.getvalue(), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    
-        elif hasil_prediksi['Hasil Prediksi'].isnull().any():
-            st.warning('Hasil prediksi kosong. Pastikan file yang diunggah sesuai format dan telah diproses dengan benar.')      
+            # Tombol untuk menyimpan hasil prediksi ke dalam file Excel
+        if st.button('Simpan Hasil Prediksi'):
+            if not hasil_prediksi['Hasil Prediksi'].isnull().any():
+                excel_output = save_to_excel(hasil_prediksi)
+                st.file_download('hasil_prediksi.xls', excel_output.getvalue(), 'application/vnd.ms-excel')
+            else:
+                st.warning('Hasil prediksi kosong. Pastikan file yang diunggah sesuai format dan telah diproses dengan benar.')   
     
              
 
